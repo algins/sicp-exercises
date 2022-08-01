@@ -1,7 +1,7 @@
 install:
-	raco pkg install rackunit
-	raco pkg install sicp
-	raco pkg install review
+	raco pkg install --auto rackunit || true
+	raco pkg install --auto sicp || true
+	raco pkg install --auto review || true
 
 test:
 	raco test sicp
