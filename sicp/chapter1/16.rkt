@@ -2,13 +2,16 @@
 
 (#%require rackunit)
 
-(define (solution row col) 
-  (cond ((or (= col 1) (= row col)) 1)
-        (else (+ (solution (- row 1) (- col 1))
-                 (solution (- row 1) col)))))
+(define (fast-expt b n)
+  (define (iter b counter a)
+    (if (= counter 0)
+        a
+        (if (even? counter)
+            (iter (* b b) (/ counter 2) a)
+            (iter b (- counter 1) (* b a)))))
+  (iter b n 1))     
 
-(check-equal? (solution 1 1) 1)
-(check-equal? (solution 3 2) 2)
-(check-equal? (solution 4 3) 3)
-(check-equal? (solution 5 2) 4)
-(check-equal? (solution 5 3) 6)
+(check-equal? (fast-expt 10 0) 1)
+(check-equal? (fast-expt 3 20) (expt 3 20))
+(check-equal? (fast-expt 2 10) (expt 2 10))
+(check-equal? (fast-expt 0 5) 0)
